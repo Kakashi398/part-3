@@ -62,7 +62,23 @@ const generateId = () => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
+  const newPerson = persons.map(person => person.name)
+  
 
+  if(!body.name || !body.number) {
+    return response.status(400).json({
+      error: 'the name or number is missing'
+    })
+  } 
+
+  else if(newPerson.includes(body.name)) {
+    return response.status(400).json({
+      error: 'name already exists'
+    })
+  }
+  
+  
+  
   const person = {
     id: generateId(),
     name: body.name,
