@@ -2,6 +2,11 @@ const { response, request } = require('express')
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
+
+const cors = require('cors')
+
+app.use(cors())
+
 app.use(express.json())
 
 let persons = [
