@@ -1,2 +1,4 @@
 # part-3
-http://localhost:3001/api/persons
+BEFORE PRODT. BUILD http://localhost:3001/api/persons
+
+AFTER PRODT BUILD http://localhost:3001/
