@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Kakashi398/part-3#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^14.3.2",
     "express": "^4.17.1",
     "mongoose": "^6.1.8",
     "morgan": "^1.10.0"
