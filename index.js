@@ -57,8 +57,11 @@ app.get('/api/persons', (request, response) => {
 })
 
 app.get('/api/persons/:id',(request, response) => {
-  const id = Number(request.params.id)
-  const person = persons.find(person => person.id === id)
+  Person.findById(request.params.id).then(person => {
+    response.json(person)
+  })
+  // const id = Number(request.params.id)
+  // const person = persons.find(person => person.id === id)
 
   if(person) {
     response.json(person)
@@ -81,7 +84,7 @@ app.post('/api/persons', (request, response) => {
   const newPerson = persons.map(person => person.name)
   
 
-  if(!body.name || !body.number) {
+  if(!body.name || !body.number === undefined) {
     return response.status(400).json({
       error: 'the name or number is missing'
     })
@@ -95,22 +98,26 @@ app.post('/api/persons', (request, response) => {
   
   
   
-  const person = {
-    name: body.name,
-    number: body.number,
-   
-  }
+  const person = new Person ({
+      name: body.name,
+      number: body.number,
+    })
 
-persons = persons.concat(person)
+    person.save().then(savedPerson => {
+      response.json(savedPerson)
+    })
 
-response.json(person)
+// persons = persons.concat(person)
+// response.json(person)
 })
 
 app.delete('/api/persons/:id',(request, response) => {
-  const id = Number(request.params.id)
-  persons = persons.filter(person => person.id !== id)
+  Person.findByIdAndDelete(request.params.id).then(person => {
+    response.json(person)
+  })
+  // persons = persons.filter(person => person.id !== id)
 
-  response.status(204).end()
+  // response.status(204).end()
 })
 
 const PORT = process.env.PORT
