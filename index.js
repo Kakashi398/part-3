@@ -111,12 +111,14 @@ app.post('/api/persons', (request, response) => {
 // response.json(person)
 })
 
-app.delete('/api/persons/:id',(request, response) => {
-  Person.findByIdAndDelete(request.params.id).then(person => {
-    response.json(person)
+app.delete('/api/persons/:id',(request, response, next) => {
+  Person.findByIdAndRemove(request.params.id)
+  .then(result => {
+    response.status(204).end()
   })
-  // persons = persons.filter(person => person.id !== id)
 
+  .catch(error => next(error))
+  // persons = persons.filter(person => person.id !== id)
   // response.status(204).end()
 })
 
